@@ -1,8 +1,11 @@
 // Класс Копейщика
 class Spearman : Character
 {
-    public Spearman(string name, int health, int strength, int agility, int intelligence, int armor, int level, int experience) : base(name, health, strength, agility, intelligence, armor, level, experience)
-    {
+    public Spearman(string name, int health, int strength, int agility,
+                   int intelligence, int armor, int level, int experience,
+                   Coordinates position)
+        : base(name, health, strength, agility, intelligence, armor, level, experience, position)
+        {
     }
 
     public override void Attack()
@@ -34,6 +37,6 @@ class Spearman : Character
 
     public override string ToString()
     {
-        return this.GetType().Name + ": " + name;
+        return this.GetType().Name + ": " + name + ", Position(X, Y): " + position;
     }
 }

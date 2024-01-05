@@ -1,4 +1,5 @@
-﻿abstract class Character
+﻿
+abstract class Character
 {
     protected string name;
     protected int health;
@@ -9,7 +10,11 @@
     protected int level;
     protected int experience;
 
-    public Character(string name, int health, int strength, int agility, int intelligence, int armor, int level, int experience)
+    protected Coordinates position;
+
+
+    public Character(string name, int health, int strength, int agility, int intelligence,
+                     int armor, int level, int experience, Coordinates position)
     {
         this.name = name;
         this.health = health;
@@ -19,6 +24,7 @@
         this.armor = armor;
         this.level = level;
         this.experience = experience;
+        this.position = position;
     }
 
     public abstract void Attack();
@@ -31,6 +37,6 @@
 
     public override string ToString()
     {
-        return name;
+        return $"{name} at ({position.X}, {position.Y})";
     }
 }
