@@ -10,12 +10,12 @@ class Crossbowman : Character
 
     public override void Attack()
     {
-        Console.WriteLine("Арбалетчик атакует арбалетом!");
+        Console.WriteLine("The crossbowman is attacking with a crossbow!");
     }
 
     public override void Heal()
     {
-        Console.WriteLine("Арбалетчик не может лечить.");
+        Console.WriteLine("The crossbowman cannot heal.");
     }
 
     public override void LevelUp()
@@ -26,17 +26,17 @@ class Crossbowman : Character
         agility += 3;
         intelligence += 1;
         armor += 2;
-        Console.WriteLine("Арбалетчик повысил уровень! Текущий уровень: " + level);
+        Console.WriteLine("The crossbowman has raised the level! Current level: " + level);
     }
 
     public override void GainExperience(int amount)
     {
         experience += amount;
-        Console.WriteLine("Арбалетчик получил " + amount + " опыта! Текущий опыт: " + experience);
+        Console.WriteLine("Арбалетчик получил " + amount + " experience! Current experience: " + experience);
     }
 
     public override string ToString()
     {
-        return this.GetType().Name + ": " + name + ", Position(X, Y): " + position;
+        return $"{this.GetType().Name}: {name}, Position(X, Y): ({position.X}, {position.Y})";
     }
 }

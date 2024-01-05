@@ -10,12 +10,12 @@ class Spearman : Character
 
     public override void Attack()
     {
-        Console.WriteLine("Копейщик атакует копьем!");
+        Console.WriteLine("The spearman is attacking with a spear!");
     }
 
     public override void Heal()
     {
-        Console.WriteLine("Копейщик не может лечить.");
+        Console.WriteLine("A spearman cannot heal.");
     }
 
     public override void LevelUp()
@@ -26,17 +26,17 @@ class Spearman : Character
         agility += 2;
         intelligence += 1;
         armor += 3;
-        Console.WriteLine("Копейщик повысил уровень! Текущий уровень: " + level);
+        Console.WriteLine("The Spearman has raised the level! Current level: " + level);
     }
 
     public override void GainExperience(int amount)
     {
         experience += amount;
-        Console.WriteLine("Копейщик получил " + amount + " опыта! Текущий опыт: " + experience);
+        Console.WriteLine("The spearman received " + amount + " experience! Current experience: " + experience);
     }
 
     public override string ToString()
     {
-        return this.GetType().Name + ": " + name + ", Position(X, Y): " + position;
+        return $"{this.GetType().Name}: {name}, Position(X, Y): ({position.X}, {position.Y})";
     }
 }

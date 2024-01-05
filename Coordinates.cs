@@ -1,4 +1,3 @@
-using System;
 public class Coordinates
 {
     public int X { get; }
@@ -12,11 +11,6 @@ public class Coordinates
 
     public double DistanceTo(Coordinates other)
     {
-        return Math.Sqrt(Math.Pow(this.X - other.X, 2) + Math.Pow(this.Y - other.Y, 2));
-    }
-
-    public override string ToString()
-    {
-        return $"({X}, {Y})";
+        return Math.Sqrt(Math.Pow(X - other.X, 2) + Math.Pow(Y - other.Y, 2));
     }
 }

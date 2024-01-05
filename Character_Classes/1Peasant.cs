@@ -10,12 +10,12 @@ class Peasant : Character
 
     public override void Attack()
     {
-        Console.WriteLine("Крестьянин атакует с факелом!");
+        Console.WriteLine("The peasant is attacking with a torch!");
     }
 
     public override void Heal()
     {
-        Console.WriteLine("Крестьянин не может лечить.");
+        Console.WriteLine("The peasant cannot heal.");
     }
 
     public override void LevelUp()
@@ -26,17 +26,17 @@ class Peasant : Character
         agility += 1;
         intelligence += 1;
         armor += 1;
-        Console.WriteLine("Крестьянин повысил уровень! Текущий уровень: " + level);
+        Console.WriteLine("The peasant has raised the level! Current level: " + level);
     }
 
     public override void GainExperience(int amount)
     {
         experience += amount;
-        Console.WriteLine("Крестьянин получил " + amount + " опыта! Текущий опыт: " + experience);
+        Console.WriteLine("The peasant received " + amount + " experience! Current experience: " + experience);
     }
 
     public override string ToString()
     {
-        return this.GetType().Name + ": " + name + ", Position(X, Y): " + position;
+        return $"{this.GetType().Name}: {name}, Position(X, Y): ({position.X}, {position.Y})";
     }
 }

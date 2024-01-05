@@ -10,12 +10,12 @@ class Monk : Character
 
     public override void Attack()
     {
-        Console.WriteLine("Монах атакует приемами боевого искусства!");
+        Console.WriteLine("The monk attacks with martial arts techniques!");
     }
 
     public override void Heal()
     {
-        Console.WriteLine("Монах лечит с помощью целительных приемов!");
+        Console.WriteLine("The monk heals with healing techniques!");
     }
 
     public override void LevelUp()
@@ -26,17 +26,17 @@ class Monk : Character
         agility += 2;
         intelligence += 2;
         armor += 2;
-        Console.WriteLine("Монах повысил уровень! Текущий уровень: " + level);
+        Console.WriteLine("The monk has raised the level! Current level: " + level);
     }
 
     public override void GainExperience(int amount)
     {
         experience += amount;
-        Console.WriteLine("Монах получил " + amount + " опыта! Текущий опыт: " + experience);
+        Console.WriteLine("The monk received " + amount + " experience! Current experience: " + experience);
     }
 
     public override string ToString()
     {
-        return this.GetType().Name + ": " + name + ", Position(X, Y): " + position;
+        return $"{this.GetType().Name}: {name}, Position(X, Y): ({position.X}, {position.Y})";
     }
 }

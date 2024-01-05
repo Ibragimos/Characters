@@ -10,12 +10,12 @@ class Warlock : Character
 
     public override void Attack()
     {
-        Console.WriteLine("Колдун атакует заклинанием!");
+        Console.WriteLine("The sorcerer attacks with a spell!");
     }
 
     public override void Heal()
     {
-        Console.WriteLine("Колдун лечит с помощью магии!");
+        Console.WriteLine("The sorcerer heals with magic!");
     }
 
     public override void LevelUp()
@@ -26,17 +26,17 @@ class Warlock : Character
         agility += 1;
         intelligence += 3;
         armor += 1;
-        Console.WriteLine("Колдун повысил уровень! Текущий уровень: " + level);
+        Console.WriteLine("The sorcerer has raised the level! Current level: " + level);
     }
 
     public override void GainExperience(int amount)
     {
         experience += amount;
-        Console.WriteLine("Колдун получил " + amount + " опыта! Текущий опыт: " + experience);
+        Console.WriteLine("The sorcerer received " + amount + " experience! Current experience: " + experience);
     }
 
     public override string ToString()
     {
-        return this.GetType().Name + ": " + name + ", Position(X, Y): " + position;
+        return $"{this.GetType().Name}: {name}, Position(X, Y): ({position.X}, {position.Y})";
     }
 }
