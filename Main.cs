@@ -1,5 +1,5 @@
 using System;
-using System.Reflection.Metadata.Ecma335;
+using System.Collections.Generic;
 
 class MainClass
 {
@@ -7,13 +7,13 @@ class MainClass
 
     public static string Team(List<Character> leftTeam, List<Character> rightTeam, Character character)
     {
-        foreach (var item in leftTeam)
+        if (leftTeam.Contains(character))
         {
-            if (character == item) return "leftTeam";
+            return "leftTeam";
         }
-        foreach (var item in rightTeam)
+        else if (rightTeam.Contains(character))
         {
-            if (character == item) return "rightTeam";
+            return "rightTeam";
         }
         return null;
     }
@@ -29,13 +29,34 @@ class MainClass
         Crossbowman crossbowman = new Crossbowman("Charlotte", 120, 60, 7, 3, 2, 1, 0, new Coordinates(0, 0));
         Monk monk = new Monk("Benjamin", 130, 70, 8, 5, 2, 1, 0, new Coordinates(5, 1));
 
+        List<Character> characters = new List<Character>
+        {
+            peasant,
+            rogue,
+            sniper,
+            warlock,
+            spearman,
+            crossbowman,
+            monk
+        };
+
         List<Character> leftTeam = new List<Character>();
         List<Character> rightTeam = new List<Character>();
 
-        leftTeam.Add(sniper);
-        rightTeam.Add(rogue);
+        Random random = new Random();
+        foreach (Character character in characters)
+        {
+            if (leftTeam.Count < 4)
+            {
+                leftTeam.Add(character);
+            }
+            else
+            {
+                rightTeam.Add(character);
+            }
+        }
 
- Character nearestEnemy = sniper.FindNearestEnemy(rightTeam);
+        Character nearestEnemy = sniper.FindNearestEnemy(rightTeam);
 
         if (nearestEnemy != null)
         {
@@ -44,13 +65,13 @@ class MainClass
 
 
 
-        Console.WriteLine(peasant);
+        Console.WriteLine($"{peasant}, team: {Team(leftTeam, rightTeam, peasant)}");
         Console.WriteLine($"{rogue}, team: {Team(leftTeam, rightTeam, rogue)}");
         Console.WriteLine($"{sniper}, team: {Team(leftTeam, rightTeam, sniper)}");
-        Console.WriteLine(warlock);
-        Console.WriteLine(spearman);
-        Console.WriteLine(crossbowman);
-        Console.WriteLine(monk);
+        Console.WriteLine($"{warlock}, team: {Team(leftTeam, rightTeam, warlock)}");
+        Console.WriteLine($"{spearman}, team: {Team(leftTeam, rightTeam, spearman)}");
+        Console.WriteLine($"{crossbowman}, team: {Team(leftTeam, rightTeam, crossbowman)}");
+        Console.WriteLine($"{monk}, team: {Team(leftTeam, rightTeam, monk)}");
         System.Console.WriteLine();
 
 
