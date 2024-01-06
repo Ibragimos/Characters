@@ -43,10 +43,10 @@ class MainClass
         List<Character> leftTeam = new List<Character>();
         List<Character> rightTeam = new List<Character>();
 
-        Random random = new Random();
+
         foreach (Character character in characters)
         {
-            if (leftTeam.Count <= 4)
+            if (leftTeam.Count < 4)
             {
                 leftTeam.Add(character);
             }
