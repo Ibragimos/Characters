@@ -46,7 +46,7 @@ class MainClass
         Random random = new Random();
         foreach (Character character in characters)
         {
-            if (leftTeam.Count < 4)
+            if (leftTeam.Count <= 4)
             {
                 leftTeam.Add(character);
             }
