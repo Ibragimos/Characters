@@ -3,9 +3,9 @@ class Warlock : Character
 {
     public Warlock(string name, int health, int strength, int agility,
                    int intelligence, int armor, int level, int experience,
-                   Coordinates position)
-        : base(name, health, strength, agility, intelligence, armor, level, experience, position)
-        {
+                   Coordinates position, int initiative)
+        : base(name, health, strength, agility, intelligence, armor, level, experience, position, initiative)
+    {
     }
 
     public override void Attack()
@@ -13,9 +13,11 @@ class Warlock : Character
         Console.WriteLine("The sorcerer attacks with a spell!");
     }
 
-    public override void Heal()
+    public override int Heal()
     {
-        Console.WriteLine("The sorcerer heals with magic!");
+        int health = 10;
+        System.Console.WriteLine($"The sorcerer has {health} HP");
+        return health;
     }
 
     public override void LevelUp()
@@ -38,5 +40,9 @@ class Warlock : Character
     public override string ToString()
     {
         return $"{this.GetType().Name}: {name}, Position(X, Y): ({position.X}, {position.Y})";
+    }
+    public override void Step()
+    {
+
     }
 }

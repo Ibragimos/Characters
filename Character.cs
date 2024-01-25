@@ -11,10 +11,12 @@ public abstract class Character
     protected int armor;
     protected int level;
     protected int experience;
+    protected int initiative;
     public Coordinates position { get; set; }
 
+
     public Character(string name, int health, int strength, int agility, int intelligence,
-                     int armor, int level, int experience, Coordinates position)
+                     int armor, int level, int experience, Coordinates position, int initiative)
     {
         this.name = name;
         this.health = health;
@@ -25,15 +27,17 @@ public abstract class Character
         this.level = level;
         this.experience = experience;
         this.position = position;
+        this.initiative = initiative;
     }
 
     public abstract void Attack();
 
-    public abstract void Heal();
+    public abstract int Heal();
 
     public abstract void LevelUp();
 
     public abstract void GainExperience(int amount);
+    public abstract void Step();
 
     public string GetName()
     {
@@ -45,8 +49,16 @@ public abstract class Character
         return position;
     }
 
+    
+    public int GetInitiative()
+    {
+        return initiative;
+    }
+
     public override string ToString()
     {
         return $"{name} at ({position.X}, {position.Y})";
     }
+
+
 }

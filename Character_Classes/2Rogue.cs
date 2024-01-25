@@ -3,9 +3,9 @@ class Rogue : Character
 {
     public Rogue(string name, int health, int strength, int agility,
                    int intelligence, int armor, int level, int experience,
-                   Coordinates position)
-        : base(name, health, strength, agility, intelligence, armor, level, experience, position)
-        {
+                   Coordinates position, int initiative)
+        : base(name, health, strength, agility, intelligence, armor, level, experience, position, initiative)
+    {
     }
 
     public override void Attack()
@@ -13,9 +13,11 @@ class Rogue : Character
         Console.WriteLine("The robber attacks with a dagger!");
     }
 
-    public override void Heal()
+    public override int Heal()
     {
-        Console.WriteLine("The robber cannot heal.");
+        int health = 10;
+        System.Console.WriteLine($"The robber has {health} HP");
+        return health;
     }
 
     public override void LevelUp()
@@ -29,6 +31,7 @@ class Rogue : Character
         Console.WriteLine("The robber has raised the level! Current level: " + level);
     }
 
+
     public override void GainExperience(int amount)
     {
         experience += amount;
@@ -37,6 +40,11 @@ class Rogue : Character
 
     public override string ToString()
     {
-    return $"{this.GetType().Name}: {name}, Position(X, Y): ({position.X}, {position.Y})";
+        return $"{this.GetType().Name}: {name}, Position(X, Y): ({position.X}, {position.Y})";
+    }
+    public override void Step()
+    {
+
     }
 }
+
