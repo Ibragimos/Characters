@@ -14,6 +14,7 @@ class MainClass
         {
             return "rightTeam";
         }
+        
         return null;
     }
 
@@ -28,6 +29,7 @@ class MainClass
         {
             team = leftTeam;
         }
+
         return null;
     }
 
