@@ -62,16 +62,8 @@ class Rogue : Character
         Character nearestEnemy = FindNearestEnemyRogue(enemies);
         if (nearestEnemy != null)
         {
-            if (this.GetPosition().X > this.GetPosition().Y)
-            {
-                weApproachedTheEnemyX = this.GetPosition().X - nearestEnemy.GetPosition().X;
-            }
-            else
-            {
-
-                weApproachedTheEnemyY = this.GetPosition().Y - nearestEnemy.GetPosition().Y;
-
-            }
+            weApproachedTheEnemyX = this.GetPosition().X - nearestEnemy.GetPosition().X;
+            weApproachedTheEnemyY = this.GetPosition().Y - nearestEnemy.GetPosition().Y;
         }
 
         return new Tuple<double, double>(weApproachedTheEnemyX, weApproachedTheEnemyY);
@@ -100,8 +92,8 @@ class Rogue : Character
             {
                 Console.WriteLine($"The closest enemy to the rogue - {nearestEnemyRogue.GetName()} at position {nearestEnemyRogue.GetPosition().X}, {nearestEnemyRogue.GetPosition().Y}.");
 
-                double dX = nearestEnemyRogue.GetPosition().X - this.GetPosition().X;
-                double dY = nearestEnemyRogue.GetPosition().Y - this.GetPosition().Y;
+                double dX = StrikeAtTheClosestEnemy().Item1;
+                double dY = StrikeAtTheClosestEnemy().Item2;
 
                 if (Math.Abs(dX) <= 1.0 && Math.Abs(dY) <= 1.0)
                 {
