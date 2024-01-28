@@ -1,11 +1,67 @@
 // Класс Монаха
 class Monk : Character
 {
+    private List<Character> enemies;
+
     public Monk(string name, int health, int strength, int agility,
-                   int intelligence, int armor, int level, int experience,
-                   Coordinates position, int initiative)
-        : base(name, health, strength, agility, intelligence, armor, level, experience, position, initiative)
+                      int intelligence, int armor, int level, int experience,
+                      Coordinates position, int initiative, List<Character> enemies)
+            : base(name, health, strength, agility, intelligence, armor, level, experience, position, initiative)
     {
+        this.enemies = enemies;
+    }
+
+    public Character FindNearestEnemyMonk(List<Character> enemies)
+    {
+        Character nearestEnemy = null;
+        double nearestDistance = double.MaxValue;
+
+        foreach (var enemy in enemies)
+        {
+            if (enemy is Monk || enemy == this)
+                continue;
+
+            double distance = this.position.DistanceTo(enemy.GetPosition());
+            if (distance < nearestDistance)
+            {
+                nearestDistance = distance;
+                nearestEnemy = enemy;
+            }
+        }
+
+        return nearestEnemy;
+    }
+
+    public void SetPosition(Coordinates newPosition)
+    {
+        this.position = newPosition;
+    }
+
+    public void Move(int deltaX, int deltaY)
+    {
+        int newX = this.GetPosition().X + deltaX;
+        int newY = this.GetPosition().Y + deltaY;
+
+        this.SetPosition(new Coordinates(newX, newY));
+
+        Console.WriteLine($"Monk moved to position: {newX}, {newY}");
+    }
+
+
+
+    public Tuple<double, double> StrikeAtTheClosestEnemy()
+    {
+        double weApproachedTheEnemyX = 0;
+        double weApproachedTheEnemyY = 0;
+
+        Character nearestEnemy = FindNearestEnemyMonk(enemies);
+        if (nearestEnemy != null)
+        {
+            weApproachedTheEnemyX = this.GetPosition().X - nearestEnemy.GetPosition().X;
+            weApproachedTheEnemyY = this.GetPosition().Y - nearestEnemy.GetPosition().Y;
+        }
+
+        return new Tuple<double, double>(weApproachedTheEnemyX, weApproachedTheEnemyY);
     }
 
     public override void Attack()
@@ -15,9 +71,14 @@ class Monk : Character
 
     public override int Heal()
     {
-        int health = 10;
+        int health = 0;
         System.Console.WriteLine($"The monk has {health} HP");
         return health;
+    }
+
+    private bool IsDead()
+    {
+        return Heal() <= 0;
     }
 
     public override void LevelUp()
@@ -41,8 +102,42 @@ class Monk : Character
     {
         return $"{this.GetType().Name}: {name}, Position(X, Y): ({position.X}, {position.Y})";
     }
-    public override void Step()
+public override void Step()
     {
+        if (IsDead())
+        {
+            Console.WriteLine("The monk is dead and cannot perform the attack action");
+        }
+        else
+        {
+            Character nearestEnemyMonk = FindNearestEnemyMonk(enemies);
+            if (nearestEnemyMonk != null && nearestEnemyMonk != this)
+            {
+                Console.WriteLine($"The closest enemy to the monk - {nearestEnemyMonk.GetName()} at position {nearestEnemyMonk.GetPosition().X}, {nearestEnemyMonk.GetPosition().Y}.");
 
+                double dX = nearestEnemyMonk.GetPosition().X - this.GetPosition().X;
+                double dY = nearestEnemyMonk.GetPosition().Y - this.GetPosition().Y;
+
+                if (Math.Abs(dX) <= 1.0 && Math.Abs(dY) <= 1.0)
+                {
+                    Attack();
+                }
+                else
+                {
+                    Console.WriteLine($"Monk takes a step towards {nearestEnemyMonk.GetName()}");
+
+                    if (Math.Abs(dX) > Math.Abs(dY))
+                    {
+                        this.Move(dX > 0 ? 1 : -1, 0); // движение по оси X
+                    }
+                    else
+                    {
+                        this.Move(0, dY > 0 ? 1 : -1); // движение по оси Y
+                    }
+
+                    Console.WriteLine($"We approached the enemy at a distance of {StrikeAtTheClosestEnemy()}");
+                }
+            }
+        }
     }
 }

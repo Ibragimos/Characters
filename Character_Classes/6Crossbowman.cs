@@ -37,7 +37,7 @@ class Crossbowman : Character
 
     public override int Heal()
     {
-        int health = 0;
+        int health = 10;
         System.Console.WriteLine($"The crossbowman has {health} HP");
         return health;
     }
