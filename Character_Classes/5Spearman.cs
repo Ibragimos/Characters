@@ -18,7 +18,7 @@ class Spearman : Character
 
     public override int Heal()
     {
-        int health = 10;
+        int health = 0;
         System.Console.WriteLine($"The spearman has {health} HP");
         return health;
     }

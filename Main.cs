@@ -14,9 +14,11 @@ class MainClass
         {
             return "rightTeam";
         }
-        
+
         return null;
     }
+
+
 
     public static List<Character> TeamSide(List<Character> leftTeam, List<Character> rightTeam, Character characterTeam)
     {
@@ -111,6 +113,18 @@ class MainClass
             }
         }
 
+        View.PrintGreen("***leftTeam = Green***");
+        foreach (Character player in leftTeam)
+        {
+            View.PrintGreen(player.GetName());
+        }
+
+        View.PrintBlue("***leftTeam = Blue***");
+        foreach (Character player in rightTeam)
+        {
+            View.PrintBlue(player.GetName());
+        }
+
         Character nearestEnemySniper = sniper.FindNearestEnemySniper(rightTeam);
         Character nearestEnemyCrossbowman = crossbowman.FindNearestEnemyCrossbowman(rightTeam);
         sniper.Step();
@@ -134,6 +148,9 @@ class MainClass
         System.Console.WriteLine();
 
         CharacterInitiation(characters);
+
+        GameOver gameOver = new GameOver();
+        gameOver.GameOverWinner(leftTeam, rightTeam);
 
     }
 }
