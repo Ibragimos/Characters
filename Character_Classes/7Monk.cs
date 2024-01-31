@@ -72,8 +72,12 @@ class Monk : Character
     public override int Heal()
     {
         int health = 0;
-        System.Console.WriteLine($"The monk has {health} HP");
         return health;
+    }
+
+    public void HealString()
+    {
+        System.Console.WriteLine($"The monk has {Heal()} HP");
     }
 
     private bool IsDead()
@@ -102,7 +106,7 @@ class Monk : Character
     {
         return $"{this.GetType().Name}: {name}, Position(X, Y): ({position.X}, {position.Y})";
     }
-public override void Step()
+    public override void Step()
     {
         if (IsDead())
         {
@@ -115,8 +119,8 @@ public override void Step()
             {
                 Console.WriteLine($"The closest enemy to the monk - {nearestEnemyMonk.GetName()} at position {nearestEnemyMonk.GetPosition().X}, {nearestEnemyMonk.GetPosition().Y}.");
 
-                double dX = nearestEnemyMonk.GetPosition().X - this.GetPosition().X;
-                double dY = nearestEnemyMonk.GetPosition().Y - this.GetPosition().Y;
+                double dX = StrikeAtTheClosestEnemy().Item1;
+                double dY = StrikeAtTheClosestEnemy().Item2;
 
                 if (Math.Abs(dX) <= 1.0 && Math.Abs(dY) <= 1.0)
                 {

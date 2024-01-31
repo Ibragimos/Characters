@@ -19,8 +19,12 @@ class Spearman : Character
     public override int Heal()
     {
         int health = 0;
-        System.Console.WriteLine($"The spearman has {health} HP");
         return health;
+    }
+
+    public void HealString()
+    {
+        System.Console.WriteLine($"The spearman has {Heal()} HP");
     }
 
     private bool IsDead()
@@ -114,8 +118,8 @@ class Spearman : Character
             {
                 Console.WriteLine($"The closest enemy to the spearman - {nearestEnemySpearman.GetName()} at position {nearestEnemySpearman.GetPosition().X}, {nearestEnemySpearman.GetPosition().Y}.");
 
-                double dX = nearestEnemySpearman.GetPosition().X - this.GetPosition().X;
-                double dY = nearestEnemySpearman.GetPosition().Y - this.GetPosition().Y;
+                double dX = StrikeAtTheClosestEnemy().Item1;
+                double dY = StrikeAtTheClosestEnemy().Item2;
 
                 if (Math.Abs(dX) <= 1.0 && Math.Abs(dY) <= 1.0)
                 {

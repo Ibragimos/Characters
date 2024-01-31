@@ -1,13 +1,16 @@
 public class Sniper : Character
 {
     private List<Character> enemies;
-    public Sniper(string name, int health, int strength, int agility,
-                      int intelligence, int armor, int level, int experience,
-                      Coordinates position, int initiative, List<Character> enemies)
-            : base(name, health, strength, agility, intelligence, armor, level, experience, position, initiative)
+    private List<Peasant> peasants;
+
+    public Sniper(string name, int health, int strength, int agility, int intelligence, int armor, int level, int experience,
+                        Coordinates position, int initiative, List<Character> enemies, List<Peasant> peasants)
+        : base(name, health, strength, agility, intelligence, armor, level, experience, position, initiative)
     {
         this.enemies = enemies;
+        this.peasants = peasants;
     }
+
 
     public Character FindNearestEnemySniper(List<Character> enemies)
     {
@@ -29,16 +32,33 @@ public class Sniper : Character
 
     public override void Attack()
     {
-        Console.WriteLine("The sniper is attacking with a sniper rifle!");
+        Console.WriteLine("The sniper is attacking with a crossbow!");
+    }
+
+    public void CheckAndAddPatron(int patron)
+    {
+        foreach (var peasant in peasants)
+        {
+            if (peasant.IsReady && !peasant.IsDead())
+            {
+                peasant.IsReady = false;
+                Console.WriteLine("The sniper received an patron from a peasant.");
+                break;
+            }
+        }
     }
 
     public override int Heal()
     {
         int health = 10;
-        System.Console.WriteLine($"The sniper has {health} HP");
         return health;
     }
-    private bool IsDead()
+
+    public void HealString()
+    {
+        System.Console.WriteLine($"The sniper has {Heal()} HP");
+    }
+    public bool IsDead()
     {
         return Heal() <= 0;
     }
@@ -46,18 +66,18 @@ public class Sniper : Character
     public override void LevelUp()
     {
         level++;
-        health += 12;
-        strength += 2;
+        health += 18;
+        strength += 4;
         agility += 3;
         intelligence += 1;
-        armor += 1;
+        armor += 2;
         Console.WriteLine("The sniper has raised the level! Current level: " + level);
     }
 
     public override void GainExperience(int amount)
     {
         experience += amount;
-        Console.WriteLine("The sniper got " + amount + " experience! Current experience: " + experience);
+        Console.WriteLine("The sniper took " + amount + " experience! Current experience: " + experience);
     }
 
     public override string ToString()
@@ -67,25 +87,29 @@ public class Sniper : Character
 
     public override void Step()
     {
+        Character nearestEnemySniper = FindNearestEnemySniper(enemies);
+        int patron = 10;
         if (IsDead())
         {
-            Console.WriteLine("The crossbowman is dead and cannot perform the action: Shooting.");
+            Console.WriteLine("The sniper is dead and cannot perform the action: Shooting.");
         }
         else
         {
-            int cartridges = 5;
-            Character nearestEnemySniper = FindNearestEnemySniper(enemies);
-
-            if (cartridges <= 0)
+            if (peasants.Any(p => p.IsReady && !p.IsDead()))
             {
-                System.Console.WriteLine("The sniper doesn't have any arrows to shoot!!!");
+                System.Console.WriteLine("The peasant is ready!");
+                CheckAndAddPatron(patron++);
             }
-            else if (nearestEnemySniper != null)
+            if (patron <= 0)
+            {
+                System.Console.WriteLine("The sniper doesn't have any patron to shoot!!!");
+            }
+            else
             {
                 Console.WriteLine($"The nearest enemy to the sniper is {nearestEnemySniper.GetName()} at position {nearestEnemySniper.GetPosition().X}, {nearestEnemySniper.GetPosition().Y}.");
                 System.Console.WriteLine("The sniper is shooting...");
-                cartridges--;
-                System.Console.WriteLine($"The sniper's number of cartridges decreased, there were {cartridges + 1} and now there are {cartridges}");
+                patron--;
+                System.Console.WriteLine($"The sniper's number of patron decreased, there were {patron + 1} and now there are {patron}");
             }
         }
     }

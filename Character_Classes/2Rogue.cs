@@ -17,8 +17,12 @@ class Rogue : Character
     public override int Heal()
     {
         health = 10;
-        System.Console.WriteLine($"Rogue's health is equal to {health}");
         return health;
+    }
+
+    public void HealString()
+    {
+        System.Console.WriteLine($"Rogue's health is equal to {Heal()}");
     }
 
 

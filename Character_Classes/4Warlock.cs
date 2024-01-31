@@ -16,8 +16,11 @@ class Warlock : Character
     public override int Heal()
     {
         int health = 10;
-        System.Console.WriteLine($"The sorcerer has {health} HP");
         return health;
+    }
+    public void HealString()
+    {
+        System.Console.WriteLine($"The sorcerer has {Heal()} HP");
     }
 
     public override void LevelUp()
