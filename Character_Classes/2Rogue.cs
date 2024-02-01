@@ -52,11 +52,13 @@ class Rogue : Character
         this.position = newPosition;
     }
 
-    private bool IsDead()
+    public override bool IsDead()
     {
         return Heal() <= 0;
     }
 
+    public override void ReactToStep(Character enemy)
+    { }
 
     public Tuple<double, double> StrikeAtTheClosestEnemy()
     {
@@ -102,6 +104,7 @@ class Rogue : Character
                 if (Math.Abs(dX) <= 1.0 && Math.Abs(dY) <= 1.0)
                 {
                     Attack();
+
                 }
                 else
                 {

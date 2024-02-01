@@ -27,7 +27,7 @@ class Spearman : Character
         System.Console.WriteLine($"The spearman has {Heal()} HP");
     }
 
-    private bool IsDead()
+    public override bool IsDead()
     {
         return Heal() <= 0;
     }
@@ -47,6 +47,27 @@ class Spearman : Character
     {
         experience += amount;
         Console.WriteLine("The spearman received " + amount + " experience! Current experience: " + experience);
+    }
+
+    public override void ReactToStep(Character enemy)
+    {
+        if (IsDead())
+        {
+            Console.WriteLine($"{this.GetType().Name} is already dead and cannot react to step.");
+        }
+        else
+        {
+            double distance = this.GetPosition().DistanceTo(enemy.GetPosition());
+            if (distance <= 1.0 && !enemy.IsDead())
+            {
+                Console.WriteLine($"{this.GetType().Name} is retaliating!");
+                Attack();
+            }
+            else
+            {
+                Console.WriteLine($"{this.GetType().Name} is too far to retaliate against {enemy.GetType().Name}");
+            }
+        }
     }
 
     public Character FindNearestEnemySpearman(List<Character> enemies)
@@ -105,6 +126,7 @@ class Spearman : Character
     {
         return $"{this.GetType().Name}: {name}, Position(X, Y): ({position.X}, {position.Y})";
     }
+
     public override void Step()
     {
         if (IsDead())
@@ -116,28 +138,25 @@ class Spearman : Character
             Character nearestEnemySpearman = FindNearestEnemySpearman(enemies);
             if (nearestEnemySpearman != null && nearestEnemySpearman != this)
             {
-                Console.WriteLine($"The closest enemy to the spearman - {nearestEnemySpearman.GetName()} at position {nearestEnemySpearman.GetPosition().X}, {nearestEnemySpearman.GetPosition().Y}.");
-
+                Console.WriteLine($"The closest enemy to the spearman - {nearestEnemySpearman.GetName()} at position {nearestEnemySpearman.GetPosition().X}, {nearestEnemySpearman.GetPosition().Y}");
                 double dX = StrikeAtTheClosestEnemy().Item1;
                 double dY = StrikeAtTheClosestEnemy().Item2;
-
                 if (Math.Abs(dX) <= 1.0 && Math.Abs(dY) <= 1.0)
                 {
                     Attack();
+                    nearestEnemySpearman.ReactToStep(this);
                 }
                 else
                 {
                     Console.WriteLine($"Spearman takes a step towards {nearestEnemySpearman.GetName()}");
-
                     if (Math.Abs(dX) > Math.Abs(dY))
                     {
-                        this.Move(dX > 0 ? 1 : -1, 0); // движение по оси X
+                        this.Move(dX > 0 ? 1 : -1, 0);
                     }
                     else
                     {
-                        this.Move(0, dY > 0 ? 1 : -1); // движение по оси Y
+                        this.Move(0, dY > 0 ? 1 : -1);
                     }
-
                     Console.WriteLine($"We approached the enemy at a distance of {StrikeAtTheClosestEnemy()}");
                 }
             }

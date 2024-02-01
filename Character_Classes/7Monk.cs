@@ -64,6 +64,28 @@ class Monk : Character
         return new Tuple<double, double>(weApproachedTheEnemyX, weApproachedTheEnemyY);
     }
 
+    public override void ReactToStep(Character enemy)
+    {
+        if (IsDead())
+        {
+            Console.WriteLine($"{this.GetType().Name} is already dead and cannot react to step.");
+        }
+        else
+        {
+            double distance = this.GetPosition().DistanceTo(enemy.GetPosition());
+            if (distance <= 1.5 && !enemy.IsDead())
+            {
+                Console.WriteLine($"{this.GetType().Name} is retaliating!");
+                Attack();
+            }
+            else
+            {
+                Console.WriteLine($"{this.GetType().Name} is too far to retaliate against {enemy.GetType().Name}");
+
+            }
+        }
+    }
+
     public override void Attack()
     {
         Console.WriteLine("The monk attacks with martial arts techniques!");
@@ -80,7 +102,7 @@ class Monk : Character
         System.Console.WriteLine($"The monk has {Heal()} HP");
     }
 
-    private bool IsDead()
+    public override bool IsDead()
     {
         return Heal() <= 0;
     }
@@ -122,24 +144,15 @@ class Monk : Character
                 double dX = StrikeAtTheClosestEnemy().Item1;
                 double dY = StrikeAtTheClosestEnemy().Item2;
 
-                if (Math.Abs(dX) <= 1.0 && Math.Abs(dY) <= 1.0)
+                if (Math.Abs(dX) <= 1.5 && Math.Abs(dY) <= 1.5)  
                 {
                     Attack();
+                    nearestEnemyMonk.ReactToStep(this); 
                 }
                 else
                 {
                     Console.WriteLine($"Monk takes a step towards {nearestEnemyMonk.GetName()}");
-
-                    if (Math.Abs(dX) > Math.Abs(dY))
-                    {
-                        this.Move(dX > 0 ? 1 : -1, 0); // движение по оси X
-                    }
-                    else
-                    {
-                        this.Move(0, dY > 0 ? 1 : -1); // движение по оси Y
-                    }
-
-                    Console.WriteLine($"We approached the enemy at a distance of {StrikeAtTheClosestEnemy()}");
+                    Move((int)dX, (int)dY); 
                 }
             }
         }

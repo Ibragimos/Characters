@@ -81,8 +81,11 @@ public class Peasant : Character
         System.Console.WriteLine($"The peasant has {Heal()} HP");
     }
 
+    public override void ReactToStep(Character enemy)
+    { }
 
-    public bool IsDead()
+
+    public override bool IsDead()
     {
         return Heal() <= 0;
     }
@@ -133,6 +136,7 @@ public class Peasant : Character
 
                     if (Math.Abs(dX) <= 1.0 && Math.Abs(dY) <= 1.0)
                     {
+                        
                         Attack();
                     }
                     else

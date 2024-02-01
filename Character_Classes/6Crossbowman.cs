@@ -49,6 +49,10 @@ class Crossbowman : Character
         }
     }
 
+    public override void ReactToStep(Character enemy)
+    {
+    }
+
     public override int Heal()
     {
         int health = 0;
@@ -59,7 +63,7 @@ class Crossbowman : Character
     {
         System.Console.WriteLine($"The crossbowman has {Heal()} HP");
     }
-    public bool IsDead()
+    public override bool IsDead()
     {
         return Heal() <= 0;
     }
@@ -107,10 +111,18 @@ class Crossbowman : Character
             }
             else
             {
-                Console.WriteLine($"The nearest enemy to the crossbowman is {nearestEnemyCrossbowman.GetName()} at position {nearestEnemyCrossbowman.GetPosition().X}, {nearestEnemyCrossbowman.GetPosition().Y}.");
-                System.Console.WriteLine("The crossbowman is shooting...");
-                arrows--;
-                System.Console.WriteLine($"The crossbowman's number of arrows decreased, there were {arrows + 1} and now there are {arrows}");
+                if (nearestEnemyCrossbowman != null && !nearestEnemyCrossbowman.IsDead())
+                {
+                    Console.WriteLine($"The nearest enemy to the crossbowman is {nearestEnemyCrossbowman.GetName()} at position {nearestEnemyCrossbowman.GetPosition().X}, {nearestEnemyCrossbowman.GetPosition().Y}.");
+                    Console.WriteLine("The crossbowman is shooting...");
+                    nearestEnemyCrossbowman.Attack();
+                    arrows--;
+                    System.Console.WriteLine($"The crossbowman's number of arrows decreased, there were {arrows + 1} and now there are {arrows}");
+                }
+                else
+                {
+                    Console.WriteLine("No valid enemy in range to attack.");
+                }
             }
         }
     }

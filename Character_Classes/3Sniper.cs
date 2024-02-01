@@ -58,10 +58,13 @@ public class Sniper : Character
     {
         System.Console.WriteLine($"The sniper has {Heal()} HP");
     }
-    public bool IsDead()
+    public override bool IsDead()
     {
         return Heal() <= 0;
     }
+
+    public override void ReactToStep(Character enemy)
+    { }
 
     public override void LevelUp()
     {
@@ -89,6 +92,7 @@ public class Sniper : Character
     {
         Character nearestEnemySniper = FindNearestEnemySniper(enemies);
         int patron = 10;
+
         if (IsDead())
         {
             Console.WriteLine("The sniper is dead and cannot perform the action: Shooting.");
@@ -100,16 +104,21 @@ public class Sniper : Character
                 System.Console.WriteLine("The peasant is ready!");
                 CheckAndAddPatron(patron++);
             }
+
             if (patron <= 0)
             {
                 System.Console.WriteLine("The sniper doesn't have any patron to shoot!!!");
             }
-            else
+            else if (nearestEnemySniper != null && enemies.Contains(nearestEnemySniper)) // Добавляем проверку на вражеского персонажа
             {
                 Console.WriteLine($"The nearest enemy to the sniper is {nearestEnemySniper.GetName()} at position {nearestEnemySniper.GetPosition().X}, {nearestEnemySniper.GetPosition().Y}.");
                 System.Console.WriteLine("The sniper is shooting...");
                 patron--;
                 System.Console.WriteLine($"The sniper's number of patron decreased, there were {patron + 1} and now there are {patron}");
+            }
+            else
+            {
+                Console.WriteLine("No enemies found or they are not in the enemy list");
             }
         }
     }
