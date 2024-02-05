@@ -36,7 +36,7 @@ class Warlock : Character
         return Heal() <= 0;
     }
 
-    public void HealString()
+    public override void HealString()
     {
         System.Console.WriteLine($"The sorcerer has {Heal()} HP");
     }

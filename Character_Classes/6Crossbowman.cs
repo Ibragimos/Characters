@@ -2,10 +2,10 @@
 class Crossbowman : Character
 {
     private List<Character> enemies;
-    private List<Peasant> peasants;
+    private List<Character> peasants;
 
     public Crossbowman(string name, int health, int strength, int agility, int intelligence, int armor, int level, int experience,
-                        Coordinates position, int initiative, List<Character> enemies, List<Peasant> peasants)
+                        Coordinates position, int initiative, List<Character> enemies, List<Character> peasants)
         : base(name, health, strength, agility, intelligence, armor, level, experience, position, initiative)
     {
         this.enemies = enemies;
@@ -59,7 +59,7 @@ class Crossbowman : Character
         return health;
     }
 
-    public void HealString()
+    public override void HealString()
     {
         System.Console.WriteLine($"The crossbowman has {Heal()} HP");
     }

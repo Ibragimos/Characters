@@ -20,7 +20,7 @@ class Rogue : Character
         return health;
     }
 
-    public void HealString()
+    public override void HealString()
     {
         System.Console.WriteLine($"Rogue's health is equal to {Heal()}");
     }

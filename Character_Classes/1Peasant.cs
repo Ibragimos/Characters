@@ -76,7 +76,7 @@ public class Peasant : Character
         return health;
     }
 
-    public void HealString()
+    public override void HealString()
     {
         System.Console.WriteLine($"The peasant has {Heal()} HP");
     }

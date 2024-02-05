@@ -11,7 +11,7 @@ class Monk : Character
         this.enemies = enemies;
     }
 
-    public Character FindNearestEnemyMonk(List<Character> enemies)
+    public  Character FindNearestEnemyMonk(List<Character> enemies)
     {
         Character nearestEnemy = null;
         double nearestDistance = double.MaxValue;
@@ -97,7 +97,7 @@ class Monk : Character
         return health;
     }
 
-    public void HealString()
+    public override void HealString()
     {
         System.Console.WriteLine($"The monk has {Heal()} HP");
     }

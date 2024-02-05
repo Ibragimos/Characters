@@ -22,7 +22,7 @@ class Spearman : Character
         return health;
     }
 
-    public void HealString()
+    public override void HealString()
     {
         System.Console.WriteLine($"The spearman has {Heal()} HP");
     }
